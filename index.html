@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock, Paper, Scissors</title>
+</head>
+<body>
+	<h1>가위, 바위, 보 게임을 해봅시다</h1>
+	<form method="post">
+		<label>당신의 무기를 고르세요:</label>
+		<select name="choice">
+			<option value="rock">바위</option>
+			<option value="paper">보자기</option>
+			<option value="scissors">가위</option>
+		</select>
+		<button type="submit">싸우자!</button>
+	</form>
+
+	<?php
+	$user_choice = $_POST['choice'];
+
+	function computer_choice() {
+	    $choices = array("rock", "paper", "scissors");
+	    $index = rand(0, 2);
+	    return $choices[$index];
+	}
+
+	function determine_winner($user_choice, $computer_choice) {
+	    if ($user_choice == $computer_choice) {
+	        return "비겼습니다! 조금만 더 좋은 선택을 하면 이길 수 있어요.";
+	    }
+	    elseif($user_choice == "rock" && $computer_choice == "scissors") {
+	        return "당신이 이겼습니다.";
+	    }
+	    elseif($user_choice == "paper" && $computer_choice == "rock") {
+	        return "이겼어요!";
+	    }
+	    elseif($user_choice == "scissors" && $computer_choice == "paper") {
+	        return "좋은 선택이네요! 당신이 이겼어요!";
+	    } else {
+	        return "제가 이겼네요! 다음 기회를 노려보세요";
+	    }
+	}
+
+	if (!empty($user_choice)) {
+	    $computer_choice = computer_choice();
+	    $result = determine_winner($user_choice, $computer_choice);
+
+	    echo "당신의 선택 $user_choice.<br>";
+	    echo "컴퓨터의 선택 $computer_choice.<br>";
+	    echo "$result";
+	}
+	?>
+</body>
+</html>
